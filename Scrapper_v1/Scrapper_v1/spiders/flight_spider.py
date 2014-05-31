@@ -1,7 +1,8 @@
+# -*- encoding: utf-8 -*-
 from scrapy.spider import Spider
 from scrapy.selector import Selector
 from datetime import datetime
-from Flights.items import FlightsItem
+from Scrapper_v1.items import FlightsItem
 
 class FlightSpider(Spider):
 
