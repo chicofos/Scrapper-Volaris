@@ -25,22 +25,22 @@ class FlightSpider(Spider):
 			]
 	
 	def parse(self,response):
-
+		print self.start_urls
 		sel = Selector(response)
 		item = FlightsItem()
 
 		try:
-			item['salida'] = sel.select('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[1]/span[1]/text()').extract()[0]
-			item['hora_salida'] = sel.select('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[1]/text()').extract()[0].strip()
-			item['destino'] = sel.select('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[2]/span/text()').extract()[0]
-			item['hora_destino'] = sel.select('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[2]/text()').extract()[0].strip()
-			item['vuelo'] = sel.select('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[3]/text()').extract()[0].strip()
-			item['asientos'] = sel.select('//div[@class="seat-number"]/text()').extract()[0]
-			item['tarifa_regular'] = sel.select('//td[@class="fare-price-display"]/label/text()').extract()[0].strip()
-			item['fecha'] = sel.select('//*[@id="roundTripSearch_DepartureDate"]/attribute::value').extract()
+			item['salida'] = sel.xpath('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[1]/span[1]/text()').extract()[0]
+			item['hora_salida'] = sel.xpath('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[1]/text()').extract()[0].strip()
+			item['destino'] = sel.xpath('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[2]/span/text()').extract()[0]
+			item['hora_destino'] = sel.xpath('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[2]/text()').extract()[0].strip()
+			item['vuelo'] = sel.xpath('//*[@id="sortedAvailability0"]/table/tbody/tr[2]/td[1]/span[3]/text()').extract()[0].strip()
+			item['asientos'] = sel.xpath('//div[@class="seat-number"]/text()').extract()[0]
+			item['tarifa_regular'] = sel.xpath('//td[@class="fare-price-display"]/label/text()').extract()[0].strip()
+			item['fecha'] = sel.xpath('//*[@id="roundTripSearch_DepartureDate"]/attribute::value').extract()
 
 		except Exception, e:
-			item['fecha'] = sel.select('//*[@id="roundTripSearch_DepartureDate"]/attribute::value').extract()
+			item['fecha'] = sel.xpath('//*[@id="roundTripSearch_DepartureDate"]/attribute::value').extract()
 			item['error'] = 'No Disponible'
 
 		# Vuelta
